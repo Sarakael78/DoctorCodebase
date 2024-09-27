@@ -2,7 +2,7 @@
 
 ## Overview
 
-Codebase Documenter is a Python tool designed to help you document and analyze your project by generating a comprehensive file (`project_<timestamp>.txt`). This file contains all your source code, configuration files, and project structure, along with detailed statistics.
+**Codebase Documenter** is a Python tool designed to help you document and analyze your project by generating a comprehensive file (`project_<timestamp>.txt`). This file will contain all your source code, configuration files, and project structure, along with detailed statistics.
 
 ### Use Cases
 
@@ -13,12 +13,11 @@ Codebase Documenter is a Python tool designed to help you document and analyze y
 
 **_The output file includes:_**
 
-- Source code of all Python files in the project
-- Content of configuration files (`.cfg`, `.ini`, `.yaml`, `.yml`, `.toml`)
-- Content of JSON files (`.json`)
-- Content of essential files like `requirements.txt` and `Dockerfile`
-- A representation of the project's folder structure
-- Project statistics (number of files, lines of code, functions, classes, and other interesting stats)
+- **Source code** of all Python files in the project
+- Content of **other files** (customizable in the config.yaml file)
+- Content of **essential files** like `requirements.txt` and `Dockerfile` (also customizable)
+- A representation of the project's **folder structure**
+- **Project statistics** (number of files, lines of code, functions, classes, and other interesting stats)
 
 ### Features
 
@@ -28,18 +27,39 @@ Codebase Documenter is a Python tool designed to help you document and analyze y
 
 ## Installation
 
-Clone the repository and navigate to the project directory:
+- **Clone** the repository and navigate to the project directory:
+  ```bash
+  git clone CodeBase_Documenter.git
+  cd CodeBase_Documenter
+  ```
 
-```bash
-git clone CodeBase_Documenter.git
-cd CodeBase_Documenter
-```
+- Create a **virtual environment** in the project directory:
+  ```bash
+  python -m venv .venv
+  ```
 
-Install the required dependencies:
+- Activate the virtual environment:
+  - **On Windows:**
+    ```bash
+    .venv\Scripts\activate
+    ```
+  - **On macOS and Linux:**
+    ```bash
+    source .venv/bin/activate
+    ```
 
-```bash
-pip install -r requirements.txt
-```
+- Install the required **dependencies** within the virtual environment:
+  ``` bash
+  pip install -r requirements.txt
+  ```
+
+#### Explanation
+
+- **Creating a Virtual Environment**: The command `python -m venv .venv` creates a virtual environment in a directory named `.venv` within your project directory.
+- **Activating the Virtual Environment**: The activation commands differ slightly between Windows and Unix-based systems (macOS and Linux).
+- **Installing Dependencies**: Once the virtual environment is activated, `pip install -r requirements.txt` installs the necessary packages into this isolated environment.
+
+This approach helps manage dependencies more effectively and avoids potential conflicts with other Python projects on your system.
 
 ## Usage
 To run the script, use the following command:
@@ -50,9 +70,9 @@ python allcode.py [root_dir]
 - **root_dir (optional):** This is the path to the root directory of your project. If you do not provide this argument, the script will default to using the current working directory.
 
 ## Output
-- The script will generate a file named project*<timestamp>.txt within the output directory located in your project's root directory.
+- The script will generate a file named **project.timestamp.txt** in the **output** directory located in your project's root directory.
 - The **timestamp** in the filename indicates the date and time when the file was generated.
-- If the output directory does not exist, the script will create it automatically.
+- If the output directory does not exist, it will automatically be created.
 
 ## Configuration
 - The script utilizes a config.yaml file to manage settings such as ignored directories and recognized file extensions.
