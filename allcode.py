@@ -1,3 +1,4 @@
+import gradio as gr
 import argparse
 import ast
 import datetime
@@ -222,43 +223,60 @@ def write_stats_csv(stats, output_dir, timestamp):
     except IOError as e:
         logging.error(f"Error writing to CSV file: {e}")
 
-def main():
-    parser = argparse.ArgumentParser(description="Document a Code Base.")
-    parser.add_argument("root_dir", nargs='?', default=os.getcwd(),
-                        help="Path to the project root. Defaults to current directory.")
-    args = parser.parse_args()
-
+def process_codebase(root_dir):
     # Load configuration
     config = load_config()
     ignored_dirs = set(config['directories']['ignore'])
     other_exts = set(config['extensions']['other'])
     code_exts = set(config['extensions']['code'])
     necessary_files = set(config['files']['necessary'])
-    pre_post_name = (config['output']['file_designation_pre_post_format'])
-    project_filename =(config['output']['file_name'])
-                      
+    pre_post_name = config['output']['file_designation_pre_post_format']
+    project_filename = config['output']['file_name']
+
     # Collect files
-    code_files, other_files = collect_files(args.root_dir, ignored_dirs, other_exts, necessary_files, code_exts)
+    code_files, other_files = collect_files(root_dir, ignored_dirs, other_exts, necessary_files, code_exts)
 
     # Generate a timestamp for the filename
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    project_txt_filename = (f"{project_filename}-{timestamp}.txt")
-    print(project_txt_filename)
+    project_txt_filename = f"{project_filename}-{timestamp}.txt"
+
     # Create the output folder if it doesn't exist
-    output_dir = os.path.join(args.root_dir, "cd-output")
+    output_dir = os.path.join(root_dir, "cd-output")
     os.makedirs(output_dir, exist_ok=True)
 
     # Construct the full path for the output file
     project_txt_path = os.path.join(output_dir, project_txt_filename)
 
-    write_project_txt(args.root_dir, code_files, other_files, project_txt_path, ignored_dirs, pre_post_name)
+    write_project_txt(root_dir, code_files, other_files, project_txt_path, ignored_dirs, pre_post_name)
 
-    stats = generate_stats(args.root_dir, code_files)
+    stats = generate_stats(root_dir, code_files)
+    return stats
 
-    # Print stats
-    logging.info("===== Project Statistics =====")
-    for key, value in stats.items():
-        logging.info(f"{key}: {value}")
+def main():
+    parser = argparse.ArgumentParser(description="Document a Code Base.")
+    parser.add_argument("--cli", action='store_true', help="Run in command-line mode.")
+    parser.add_argument("root_dir", nargs='?', default=os.getcwd(),
+                        help="Path to the project root. Defaults to current directory.")
+    args = parser.parse_args()
+
+    if args.cli:
+        # Run as a command-line tool
+        stats = process_codebase(args.root_dir)
+
+        # Print stats
+        logging.info("===== Project Statistics =====")
+        for key, value in stats.items():
+            logging.info(f"{key}: {value}")
+    else:
+        # Launch Gradio Interface by default
+        iface = gr.Interface(
+            fn=process_codebase,
+            inputs=gr.Textbox(label="Project Root Directory", value=os.getcwd()),
+            outputs=gr.JSON(label="Project Statistics"),
+            title="Codebase Documenter",
+            description="Analyze your codebase and get detailed statistics."
+        )
+        iface.launch()
 
 if __name__ == "__main__":
     main()

@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Codebase Documenter** is a Python tool designed to help you document and analyze your project by generating a comprehensive file (`project_<timestamp>.txt`). This file will contain all your source code, configuration files, and project structure, along with detailed statistics.
+**Codebase Documenter** is a Python tool designed to help you document and analyze your code base by generating a comprehensive file (`<projectname>_<timestamp>.txt`). This file will contain all your source code, configuration files, and project structure, along with detailed statistics.
 
 ### Use Cases
 
@@ -10,6 +10,7 @@
 - **Project Archiving**: Create a snapshot of your project at a specific point in time.
 - **Developer Onboarding**: Quickly onboard new developers by providing a clear view of the project structure.
 - **Project Analysis**: Gain insights into your project's complexity and structure through statistics.
+- **AI Context**: Provide an AI your full code base in one file.
 
 **_The output file includes:_**
 
