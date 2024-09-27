@@ -1,13 +1,15 @@
 directories:
   cache: "./.cache"
-  ignored: ["__pycache__", ".*"]
+  ignore: ["__pycache__", ".*", cache, logs, cd-output, output] ## folders to be ignored
 
 extensions:
-  config: [".cfg", ".ini", ".yaml", ".yml", ".toml", ".json"]
-  code: [".py", ".js", ".java"]  
+  code: [".py", ".js", ".java"]
+  other: [".cfg", ".ini", ".yaml", ".yml", ".toml", ".json", '.md']
+    
 
 files:
-  necessary: ["requirements.txt", "Dockerfile"]
+  necessary: ["requirements.txt", "dockerfile"] # include individual files that are not covered by the extensions
 
 output:
-  file_designation_format: "## {filename} ##"
+  file_designation_pre_post_format: '##' # goes before and after each file name in the output file
+  file_name: 'DSB-CODEBASE_DOCUMENTER' # change this to your project name 
