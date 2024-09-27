@@ -1,0 +1,13 @@
+directories:
+  cache: "./.cache"
+  ignored: ["__pycache__", ".*"]
+
+extensions:
+  config: [".cfg", ".ini", ".yaml", ".yml", ".toml", ".json"]
+  code: [".py", ".js", ".java"]  
+
+files:
+  necessary: ["requirements.txt", "Dockerfile"]
+
+output:
+  file_designation_format: "## {filename} ##"
