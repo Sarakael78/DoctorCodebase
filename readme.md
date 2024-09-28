@@ -32,8 +32,8 @@
 
 - **Clone** the repository and navigate to the project directory:
   ```bash
-  git clone CodeBase_Documenter.git
-  cd CodeBase_Documenter
+  git clone DSB-odeBase_Documenter.git
+  cd DSB-CodeBase_Documenter
   ```
 
 - Create a **virtual environment** in the project directory:

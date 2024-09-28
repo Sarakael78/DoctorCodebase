@@ -1,5 +1,7 @@
+__pycache__/
 output/
 cache/
 .*/
 cd-output/
 flagged
+.pyc
