@@ -1,7 +1,7 @@
-__pycache__/
-output/
-cache/
+__pycache__
+output
+cache
 .*/
-cd-output/
+cd-output
 flagged
 .pyc
