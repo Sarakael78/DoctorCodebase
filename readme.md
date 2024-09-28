@@ -1,8 +1,8 @@
-# DoctorCodeBase
+# DoctorCodebase
 
 ## Overview
 
-**DoctorCodeBase** is a Python tool designed to help you document and analyze your codebase by generating a comprehensive file (`<projectname>_<timestamp>.txt`). This file will contain all your source code, configuration files, and project structure, along with detailed statistics.
+**DoctorCodebase** is a Python tool designed to help you document and analyze your codebase by generating a comprehensive file (`<projectname>_<timestamp>.txt`). This file will contain all your source code, configuration files, and project structure, along with detailed statistics.
 
 ### Use Cases
 
