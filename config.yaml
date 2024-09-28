@@ -1,14 +1,14 @@
 directories:
   cache: "./.cache"
-  ignore: ["__pycache__", ".*", cache, logs, cd-output, output] ## folders to be ignored
+  ignore: ["__pycache__", ".*", "cache", "logs", "cd-output", "output"] ## folders to be ignored
 
 extensions:
   code: [".py", ".js", ".java"]
-  other: [".cfg", ".ini", ".yaml", ".yml", ".toml", ".json", '.md']
+  other: [".cfg", ".ini", ".yaml", ".yml", ".toml", ".json", ".md", "conf"]
     
 
 files:
-  necessary: ["requirements.txt", "dockerfile"] # include individual files that are not covered by the extensions
+  necessary: ["requirements.txt", "Dockerfile", ".dockerignore"] # include individual files that are not covered by the extensions
 
 output:
   file_designation_pre_post_format: '##' # goes before and after each file name in the output file

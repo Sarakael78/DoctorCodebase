@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Codebase Documenter** is a Python tool designed to help you document and analyze your code base by generating a comprehensive file (`<projectname>_<timestamp>.txt`). This file will contain all your source code, configuration files, and project structure, along with detailed statistics.
+**Codebase Documenter** is a Python tool designed to help you document and analyze your codebase by generating a comprehensive file (`<projectname>_<timestamp>.txt`). This file will contain all your source code, configuration files, and project structure, along with detailed statistics.
 
 ### Use Cases
 
@@ -27,6 +27,8 @@
 - **Customizable and Extensible**: Easily modify the script to include/exclude specific file types or directories as needed.
 
 ## Installation
+
+**Install Git** 
 
 - **Clone** the repository and navigate to the project directory:
   ```bash
@@ -61,6 +63,28 @@
 - **Installing Dependencies**: Once the virtual environment is activated, `pip install -r requirements.txt` installs the necessary packages into this isolated environment.
 
 This approach helps manage dependencies more effectively and avoids potential conflicts with other Python projects on your system.
+## Output
+
+Depending on the selected options, the script will generate:
+
+- **Codebase Outputs:**
+  - **TXT:** Comprehensive documentation of code and project structure.
+  - **JSON:** Structured JSON containing code files, other files, and folder structure.
+  - **CSV:** Separate CSV files listing code files, other files, and folder structure.
+
+- **Statistics Outputs:**
+  - **TXT:** Formatted text file with codebase statistics.
+  - **JSON:** Structured JSON with categorized statistics.
+  - **CSV:** CSV file summarizing statistics.
+
+## Usage
+
+### CLI Mode
+
+To run the script in CLI mode and generate all output files:
+```bash
+python allcode.py --cli [root_dir]
+
 
 ## Usage
 To run the script, use the following command:
@@ -70,10 +94,7 @@ python allcode.py [root_dir]
 
 - **root_dir (optional):** This is the path to the root directory of your project. If you do not provide this argument, the script will default to using the current working directory.
 
-## Output
-- The script will generate a file named **project.timestamp.txt** in the **output** directory located in your project's root directory.
-- The **timestamp** in the filename indicates the date and time when the file was generated.
-- If the output directory does not exist, it will automatically be created.
+
 
 ## Configuration
 - The script utilizes a config.yaml file to manage settings such as ignored directories and recognized file extensions.

@@ -1,2 +1,4 @@
+# Requirements.txt
 PyYAML
+debugpy
 gradio
