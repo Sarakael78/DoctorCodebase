@@ -3,7 +3,7 @@ name: Build Windows Executable
 on:
   push:
     branches:
-      - main
+      - master  # Trigger the workflow on updates to the master branch
 
 jobs:
   build:
@@ -34,4 +34,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: executable
-        path: dist/main.exe
+        path: dist/doctor.exe
