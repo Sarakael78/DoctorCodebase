@@ -3,7 +3,7 @@ name: Build Windows Executable
 on:
   push:
     branches:
-      - master  # Trigger the workflow on updates to the master branch
+      - master
 
 jobs:
   build:
@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3  # Updated to v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4  # Updated to v4
       with:
         python-version: '3.x'
 
@@ -28,7 +28,7 @@ jobs:
 
     - name: Build executable
       run: |
-        pyinstaller --onefile --add-data "modules;modules" --add-data "config.yaml;." main.py
+        pyinstaller --onefile --name doctor --add-data "modules;modules" --add-data "config.yaml;." main.py
 
     - name: Upload executable
       uses: actions/upload-artifact@v3
