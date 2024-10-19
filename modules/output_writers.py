@@ -4,6 +4,7 @@ import csv
 import logging
 from .analysis import extract_imports_and_functions
 from .file_utils import read_file
+import fnmatch
 
 def get_output_filename(base_name, suffix, extension, timestamp):
     """
@@ -93,7 +94,65 @@ def write_stats_txt(stats, output_dir, base_name, timestamp):
     except IOError as e:
         logging.error(f"Error writing to TXT file: {e}")
         return None
+    
+def write_file_contents(root_dir, files, pt, pre_post_name, header):
+    """Writes the content of specified files to the project.txt.
 
+    Args:
+        root_dir (str): The root directory of the project.
+        files (list): List of file paths.
+        file_type (str): Type of files being processed (e.g., code files).
+        pt (file object): The file object to write the contents into.
+    """
+    
+    pt.write(f"{pre_post_name}{pre_post_name} {header} {pre_post_name}{pre_post_name}")
+    
+    for file in files:
+        pt.write(f"\n\n{pre_post_name} {file} {pre_post_name }\n\n")
+        try:
+            content = read_file(os.path.join(root_dir, file))
+            pt.write(content)
+        except OSError as e:
+            logging.warning(f"Error reading {file}: {e}")
+
+def write_folder_structure(root_dir, pt, ignored_dirs):
+    """Writes the folder structure to the project.txt.
+
+    Args:
+        root_dir (str): The root directory of the project.
+        pt (file object): The file object to write the folder structure into.
+        ignored_dirs (set): Directories to ignore.
+    """
+    pt.write("\n\n===== Folder Structure =====\n\n")
+
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        dirnames[:] = [d for d in dirnames if not any(fnmatch.fnmatch(d, pattern) for pattern in ignored_dirs)]
+
+        level = dirpath.replace(root_dir, '').count(os.sep)
+        indent = ' ' * 4 * level
+        pt.write(f"{indent}{os.path.basename(dirpath)}/\n")
+        sub_indent = ' ' * 4 * (level + 1)
+        for fname in filenames:
+            pt.write(f"{sub_indent}{fname}\n")
+            
+def write_project_txt(root_dir, code_files, other_files, project_txt_path, ignored_dirs, pre_post_name):
+    """Writes the content of code and other files to project.txt.
+
+    Args:
+        root_dir (str): The root directory of the project.
+        code_files (list): List of code file paths.
+        other_files (list): List of other relevant file paths.
+        project_txt_path (str): Path to the output project.txt file.
+        ignored_dirs (set): Directories to ignore.
+    """
+    try:
+        with open(project_txt_path, 'w', encoding='utf-8') as pt:
+            write_file_contents(root_dir, code_files, pt, pre_post_name, "Code Files")
+            write_file_contents(root_dir, other_files, pt, pre_post_name, "Other Files")
+            write_folder_structure(root_dir, pt, ignored_dirs)
+    except OSError as e:
+        logging.error(f"Error writing to project.txt: {e}")
+        
 def write_project_json(root_dir, code_files, other_files, ignored_dirs, output_dir, base_name, timestamp, folder_structure):
     """Writes the collected project data to a JSON file with improved nesting and readability."""
     project_data = {

@@ -23,7 +23,7 @@ def main():
         # Run as a command-line tool with all output formats
         output_formats = {
             "Codebase": ["txt", "json", "csv"],
-            "Statistics": ["json", "csv", "txt"]
+            "Statistics": ["txt","json","csv" ]
         }
         response = process_codebase(args.root_dir, output_formats)
 

@@ -5,7 +5,8 @@ from .config import load_config
 from .file_utils import collect_files, collect_folder_structure
 from .analysis import generate_stats
 from .output_writers import (write_stats_json, write_stats_csv, write_stats_txt, 
-                             write_project_json, write_project_csv)
+                             write_project_json, write_project_csv,write_project_txt)
+
 
 def get_output_filename(base_name, suffix, extension, timestamp):
     """
@@ -76,12 +77,13 @@ def process_codebase(root_dir, output_formats):
         codebase_output = output_formats['Codebase']
         # Write project.txt if TXT is selected
         if 'txt' in codebase_output:
-            project_txt_filename = get_output_filename(project_filename, "project", "txt", timestamp)
-            project_txt_path = os.path.join(output_dir, project_txt_filename)
-            # Assuming you have a write_project_txt function similar to write_project_json
+            txt_filename = get_output_filename(project_filename, "project", "txt", timestamp)
+            txt_path = os.path.join(output_dir, txt_filename)
+            if txt_filename:
+                response["CodeBase"].append(txt_filename) # Assuming you have a write_project_txt function similar to write_project_json
             # Implement write_project_txt similarly to write_project_json
-            # write_project_txt(...)
-            response["CodeBase"].append(project_txt_filename)
+            write_project_txt(root_dir, code_files, other_files, txt_path, ignored_dirs, pre_post_name)  
+            response["CodeBase"].append(txt_filename)
         # Write JSON
         if 'json' in codebase_output:
             json_filename = write_project_json(root_dir, code_files, other_files, ignored_dirs, output_dir, project_filename, timestamp, folder_structure)

@@ -1,9 +1,9 @@
 directories:
   cache: "./.cache"
-  ignore: ["__pycache__", ".*", "cache", "logs", "cd-output", "output", "flagged"] ## folders to be ignored
+  ignore: [".*","__pycache__", ".*", "cache", "logs", "cd-output", "output", "flagged"] ## folders to be ignored
 
 extensions:
-  code: [".py", ".js", ".java"]
+  code: [".py", ".java"]
   other: [".cfg", ".ini", ".yaml", ".yml", ".toml", ".json", ".md", "conf"]
     
 
